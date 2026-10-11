@@ -2747,6 +2747,7 @@ function initSettings() {
   function openDrawer() {
     drawer.classList.add("active");
     backdrop.classList.add("active");
+    backdrop.classList.remove("hidden");
     drawer.setAttribute("aria-hidden", "false");
     backdrop.setAttribute("aria-hidden", "false");
     playSound("click");
@@ -2755,6 +2756,7 @@ function initSettings() {
   function closeDrawer() {
     drawer.classList.remove("active");
     backdrop.classList.remove("active");
+    backdrop.classList.add("hidden");
     drawer.setAttribute("aria-hidden", "true");
     backdrop.setAttribute("aria-hidden", "true");
   }
