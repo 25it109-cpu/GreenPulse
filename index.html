@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-green-theme="emerald" data-mode="standard" data-text-size="normal">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GreenPulse — Eco-Friendly Community Portal & Gamified Ecosystem</title>
+  <meta name="description" content="GreenPulse is a futuristic gamified sustainability ecosystem. Track habits, play eco-games, earn Green Points, complete challenges, and visualize environmental impact.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Chart.js for Live Impact Analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- Nature Ambient Particle Canvas -->
+  <canvas id="ambient-canvas" class="ambient-canvas" aria-hidden="true"></canvas>
+
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- TOP PERSONA / ACCESSIBILITY MODE BAR -->
+  <aside class="mode-announcer-bar" aria-label="Experience Mode Selector">
+    <div class="mode-bar-container">
+      <div class="mode-bar-left">
+        <span class="mode-bar-label">
+          <span class="pulse-dot"></span> Experience Mode:
+        </span>
+        <div class="mode-pill-group" role="radiogroup" aria-label="Audience Experience Mode">
+          <button type="button" class="mode-pill" data-mode="kids" id="mode-btn-kids" aria-pressed="false" title="Simplified UI, larger icons and playful language">
+            <span class="mode-icon">👶</span> Kids Mode
+          </button>
+          <button type="button" class="mode-pill active" data-mode="standard" id="mode-btn-standard" aria-pressed="true" title="Complete dashboard and full ecosystem">
+            <span class="mode-icon">🧑</span> Standard Mode
+          </button>
+          <button type="button" class="mode-pill" data-mode="senior" id="mode-btn-senior" aria-pressed="false" title="High contrast, large fonts and simple labels">
+            <span class="mode-icon">👴</span> Senior-Friendly
+          </button>
+        </div>
+      </div>
+
+      <div class="quick-assist-actions">
+        <!-- Auth / Switch Quick Badge -->
+        <button id="quick-auth-btn" class="quick-icon-btn auth-chip-btn" title="View Profile or Switch Account">
+          <span id="quick-user-avatar">🌿</span>
+          <span id="quick-user-name">Alex Rivera</span>
+        </button>
+        <button id="quick-contrast-toggle" class="quick-icon-btn" title="Toggle High Contrast" aria-label="Toggle High Contrast">
+          <span class="btn-icon">👁️</span>
+          <span class="btn-text">Contrast</span>
+        </button>
+        <button id="quick-sound-toggle" class="quick-icon-btn" title="Toggle Sound Effects" aria-label="Toggle Sound Effects">
+          <span class="btn-icon" id="sound-icon-indicator">🔇</span>
+          <span class="btn-text">Audio</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- GUEST MODE BANNER (Appears when exploring as guest) -->
+  <div id="guest-alert-banner" class="guest-alert-banner hidden">
+    <div class="guest-banner-inner">
+      <span>👋 You are exploring in <strong>Guest Mode</strong>. Actions and game scores will not be permanently saved.</span>
+      <div class="guest-banner-actions">
+        <button type="button" class="btn btn-xs btn-primary" id="guest-create-acc-btn">🌱 Create Demo Account</button>
+        <button type="button" class="btn btn-xs btn-secondary" id="guest-login-btn">🔑 Login</button>
+        <button type="button" class="guest-banner-close" id="guest-banner-close" aria-label="Dismiss guest notice">&times;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STICKY GLASS NAVIGATION -->
+  <header class="site-header" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo" aria-label="GreenPulse Homepage">
+        <div class="logo-symbol">
+          <svg class="leaf-svg" viewBox="0 0 32 32" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 26C6 26 8 16 16 12C24 8 28 4 28 4C28 4 27 12 21 19C15 26 6 26 6 26Z" fill="url(#leaf-grad)" stroke="#4DFF88" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M12 21C15 18 19 15 22 13" stroke="#ECFDF5" stroke-width="1.5" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="leaf-grad" x1="6" y1="4" x2="28" y2="26" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#10B981"/>
+                <stop offset="1" stop-color="#064E3B"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="logo-glow"></div>
+        </div>
+        <div class="logo-text-wrap">
+          <span class="logo-title">GreenPulse</span>
+          <span class="logo-tagline">Eco Community</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="nav-menu" id="nav-menu" aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li><a href="#hero" class="nav-link active">Home</a></li>
+          <li><a href="#impact" class="nav-link">Impact</a></li>
+          <li><a href="#log-action" class="nav-link nav-highlight">Log Action</a></li>
+          <li><a href="#games" class="nav-link">Eco Games</a></li>
+          <li><a href="#leaderboard" class="nav-link">Leaderboard</a></li>
+          <li><a href="#community-members" class="nav-link">Community</a></li>
+          <li><a href="#challenges" class="nav-link">Challenges</a></li>
+          <li><a href="#tips" class="nav-link">Tips</a></li>
+          <li><a href="#map" class="nav-link">Map</a></li>
+          <li><a href="#my-impact" class="nav-link">My Impact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Nav Action Controls -->
+      <div class="nav-actions">
+        <!-- User Points Pill -->
+        <a href="#my-impact" class="nav-points-badge" title="Your Green Points & Level">
+          <span class="points-icon">🌱</span>
+          <span class="points-val" id="nav-user-points">1,240</span>
+          <span class="points-suffix">GP</span>
+        </a>
+
+        <!-- User Profile Navbar Button -->
+        <button type="button" id="nav-user-profile-btn" class="nav-profile-pill" title="View & Edit My Green Profile">
+          <span class="user-avatar-mini" id="nav-user-avatar">🌿</span>
+          <span class="user-name-mini" id="nav-user-name">Alex</span>
+        </button>
+
+        <!-- Switch Account Quick Icon -->
+        <button type="button" id="nav-switch-acc-btn" class="nav-icon-btn" title="Switch Demo Account" aria-label="Switch Account">
+          👥
+        </button>
+
+        <!-- Dark / Light Theme Toggle -->
+        <button id="theme-toggle-btn" class="nav-icon-btn" aria-label="Toggle Dark and Light theme" title="Toggle Theme">
+          <span class="theme-icon light-icon">☀️</span>
+          <span class="theme-icon dark-icon">🌙</span>
+        </button>
+
+        <!-- Settings Drawer Toggle -->
+        <button id="settings-open-btn" class="nav-icon-btn" aria-label="Open Settings" title="Settings">
+          ⚙️
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="nav-hamburger" class="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- SLIDE-OUT SETTINGS PANEL -->
+  <div id="settings-backdrop" class="modal-backdrop" aria-hidden="true"></div>
+  <aside id="settings-drawer" class="settings-drawer" role="dialog" aria-modal="true" aria-labelledby="settings-heading" aria-hidden="true">
+    <div class="drawer-header">
+      <div class="drawer-title-group">
+        <span class="drawer-icon">⚙️</span>
+        <h2 id="settings-heading" class="drawer-title">Ecosystem Settings</h2>
+      </div>
+      <button id="settings-close-btn" class="close-drawer-btn" aria-label="Close Settings Panel">&times;</button>
+    </div>
+
+    <div class="drawer-body">
+      <!-- Section: User Account Management -->
+      <div class="settings-section" id="account-settings-section">
+        <h3 class="settings-sec-title">👤 Demo Account</h3>
+        <div class="setting-account-card">
+          <div class="setting-acc-avatar" id="setting-acc-avatar">🌿</div>
+          <div class="setting-acc-details">
+            <span class="setting-acc-name" id="setting-acc-display-name">Alex Rivera</span>
+            <small class="setting-acc-role" id="setting-acc-role">Level 3: Green Guardian</small>
+            <span class="setting-acc-handle" id="setting-acc-handle">@alexgreen</span>
+          </div>
+        </div>
+        <div class="btn-group-column">
+          <button type="button" id="setting-edit-profile-btn" class="btn btn-secondary btn-sm">
+            ✏️ Edit My Profile
+          </button>
+          <button type="button" id="setting-switch-account-btn" class="btn btn-secondary btn-sm">
+            🔄 Switch Demo Account
+          </button>
+          <button type="button" id="setting-logout-btn" class="btn btn-outline-success btn-sm">
+            🚪 Log Out Current User
+          </button>
+          <button type="button" id="delete-account-btn" class="btn btn-danger btn-sm">
+            🗑️ Delete Demo Account
+          </button>
+        </div>
+      </div>
+
+      <!-- Section: Appearance -->
+      <div class="settings-section">
+        <h3 class="settings-sec-title">🎨 Appearance & Theme</h3>
+        
+        <div class="setting-row">
+          <label for="theme-select" class="setting-label">
+            <span>Color Mode</span>
+            <small>Choose dark, light, or auto</small>
+          </label>
+          <select id="theme-select" class="setting-select">
+            <option value="dark">Dark Forest (Default)</option>
+            <option value="light">Light Mint</option>
+            <option value="system">System Preference</option>
+          </select>
+        </div>
+
+        <div class="setting-row">
+          <label class="setting-label">
+            <span>Green Theme Palette</span>
+            <small>Accentuate your primary green shade</small>
+          </label>
+          <div class="palette-swatches" role="radiogroup" aria-label="Green Accent Theme">
+            <button type="button" class="swatch-btn active" data-color="emerald" style="--swatch:#10B981" title="Emerald Green"></button>
+            <button type="button" class="swatch-btn" data-color="forest" style="--swatch:#047857" title="Deep Forest"></button>
+            <button type="button" class="swatch-btn" data-color="mint" style="--swatch:#34D399" title="Fresh Mint"></button>
+            <button type="button" class="swatch-btn" data-color="lime" style="--swatch:#84CC16" title="Bright Lime"></button>
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <label for="text-size-select" class="setting-label">
+            <span>🔤 Text Size</span>
+            <small>Adjust font readability</small>
+          </label>
+          <select id="text-size-select" class="setting-select">
+            <option value="small">Small</option>
+            <option value="normal" selected>Normal (16px)</option>
+            <option value="large">Large (18px)</option>
+            <option value="xlarge">Extra Large (20px)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Section: Accessibility -->
+      <div class="settings-section">
+        <h3 class="settings-sec-title">♿ Accessibility</h3>
+
+        <div class="setting-row">
+          <label for="contrast-toggle-chk" class="setting-label">
+            <span>High Contrast Mode</span>
+            <small>Ultra-high visibility text & borders</small>
+          </label>
+          <input type="checkbox" id="contrast-toggle-chk" class="toggle-switch">
+        </div>
+
+        <div class="setting-row">
+          <label for="motion-toggle-chk" class="setting-label">
+            <span>Reduced Motion</span>
+            <small>Disable floating leaves & transitions</small>
+          </label>
+          <input type="checkbox" id="motion-toggle-chk" class="toggle-switch">
+        </div>
+      </div>
+
+      <!-- Section: Experience -->
+      <div class="settings-section">
+        <h3 class="settings-sec-title">🎮 Experience & Audio</h3>
+
+        <div class="setting-row">
+          <label for="sound-toggle-chk" class="setting-label">
+            <span>🔊 Sound Effects</span>
+            <small>Pleasant chimes via Web Audio API</small>
+          </label>
+          <input type="checkbox" id="sound-toggle-chk" class="toggle-switch">
+        </div>
+
+        <div class="setting-row">
+          <label for="confetti-toggle-chk" class="setting-label">
+            <span>🎉 Celebration Confetti</span>
+            <small>Particle effects when logging actions</small>
+          </label>
+          <input type="checkbox" id="confetti-toggle-chk" class="toggle-switch" checked>
+        </div>
+
+        <div class="setting-row">
+          <label for="game-fx-chk" class="setting-label">
+            <span>✨ Game Visual FX</span>
+            <small>Animations during Eco Arcade games</small>
+          </label>
+          <input type="checkbox" id="game-fx-chk" class="toggle-switch" checked>
+        </div>
+      </div>
+
+      <!-- Section: Data Management -->
+      <div class="settings-section">
+        <h3 class="settings-sec-title">💾 Local Data & State</h3>
+        <p class="settings-hint">GreenPulse saves all achievements, scores, streaks and local demo accounts in your browser's localStorage.</p>
+        <div class="btn-group-column">
+          <button type="button" id="view-data-btn" class="btn btn-secondary btn-sm">
+            📊 View Stored Data Summary
+          </button>
+          <button type="button" id="reset-data-btn" class="btn btn-danger btn-sm">
+            🔄 Reset Demo Data Baseline
+          </button>
+        </div>
+      </div>
+
+      <!-- Section: About -->
+      <div class="settings-section about-section">
+        <div class="about-card">
+          <div class="about-badge">v3.0 Multi-User Edition</div>
+          <p><strong>GreenPulse Ecosystem</strong> supports local multi-user profiles, individualized statistics, and gamified community action.</p>
+          <small>Zero backend required • Runs 100% locally with Web Crypto API demo hashing.</small>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN VIEWPORT CONTENT -->
+  <main id="main-content">
+
+    <!-- 1. HERO SECTION -->
+    <section id="hero" class="hero-section">
+      <div class="hero-bg-glow" aria-hidden="true"></div>
+      <div class="hero-grid-pattern" aria-hidden="true"></div>
+      
+      <div class="section-container hero-container">
+        <!-- Hero Left Column: Vision & Action -->
+        <div class="hero-content">
+          <div class="hero-badge-wrap">
+            <span class="hero-badge" id="hero-user-greeting">
+              <span class="badge-leaf">🌱</span> Welcome back, Alex! You've already saved 84.5 kg of CO₂.
+            </span>
+          </div>
+
+          <h1 class="hero-title">
+            Green<span class="gradient-text">Pulse</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Turn everyday actions into measurable environmental impact.
+          </p>
+
+          <p class="hero-description">
+            Track sustainable habits, play eco-games, grow your Green Points, complete community challenges and inspire your neighborhood to become greener together.
+          </p>
+
+          <!-- Hero CTAs -->
+          <div class="hero-cta-group">
+            <a href="#log-action" class="btn btn-primary btn-lg pulse-glow">
+              <span class="btn-icon">🌱</span> Log an Eco-Action
+            </a>
+            <a href="#impact" class="btn btn-glass btn-lg">
+              <span class="btn-icon">🌍</span> Explore Impact
+            </a>
+          </div>
+
+          <!-- Hero Animated Live Counters -->
+          <div class="hero-stats-band" aria-label="Community impact summary">
+            <div class="hero-stat-item">
+              <div class="stat-number-wrap">
+                <span class="stat-number" id="hero-co2-counter">1,428</span>
+                <span class="stat-unit">kg</span>
+              </div>
+              <span class="stat-label">CO₂ Saved</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="hero-stat-item">
+              <div class="stat-number-wrap">
+                <span class="stat-number" id="hero-trees-counter">342</span>
+                <span class="stat-unit">trees</span>
+              </div>
+              <span class="stat-label">Trees Planted</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="hero-stat-item">
+              <div class="stat-number-wrap">
+                <span class="stat-number" id="hero-actions-counter">2,860</span>
+                <span class="stat-unit">actions</span>
+              </div>
+              <span class="stat-label">Eco-Actions</span>
+            </div>
+          </div>
+
+          <!-- Floating Community Indicator -->
+          <div class="hero-floating-pill">
+            <div class="pulse-ring"></div>
+            <div class="pill-content">
+              <strong>🌱 Community is growing</strong>
+              <span>People are making greener choices today.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Right Column: Futuristic Interactive Eco-Visual -->
+        <div class="hero-visual-col" aria-hidden="true">
+          <div class="eco-globe-wrapper">
+            <!-- Glowing Ambient Circles -->
+            <div class="globe-halo halo-1"></div>
+            <div class="globe-halo halo-2"></div>
+
+            <!-- Central Earth & Tree Vector Graphic -->
+            <div class="central-sphere">
+              <svg class="globe-svg" viewBox="0 0 360 360" width="100%" height="100%">
+                <defs>
+                  <radialGradient id="sphereGrad" cx="40%" cy="40%" r="60%">
+                    <stop offset="0%" stop-color="#10B981" stop-opacity="0.9"/>
+                    <stop offset="60%" stop-color="#064E3B" stop-opacity="0.95"/>
+                    <stop offset="100%" stop-color="#022C22" stop-opacity="1"/>
+                  </radialGradient>
+                  <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#4DFF88" stop-opacity="0.8"/>
+                    <stop offset="50%" stop-color="#10B981" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#84CC16" stop-opacity="0.8"/>
+                  </linearGradient>
+                </defs>
+
+                <!-- Sphere Background -->
+                <circle cx="180" cy="180" r="140" fill="url(#sphereGrad)" stroke="#10B981" stroke-width="2"/>
+                
+                <!-- Continents / Flora Map Contours -->
+                <path d="M120 100 Q160 80 190 110 T240 140 Q210 180 180 170 T120 150 Z" fill="#22C55E" opacity="0.35"/>
+                <path d="M100 200 Q140 190 170 230 T210 270 Q160 290 120 250 Z" fill="#10B981" opacity="0.4"/>
+                <path d="M210 90 Q260 110 270 160 T230 200 Q200 180 200 130 Z" fill="#4DFF88" opacity="0.25"/>
+
+                <!-- Isometric Tree in Center -->
+                <g class="hero-tree-center" transform="translate(180, 185)">
+                  <!-- Trunk -->
+                  <path d="M-8 40 L-4 5 L4 5 L8 40 Z" fill="#65A30D"/>
+                  <!-- Foliage Layers -->
+                  <circle cx="0" cy="-10" r="32" fill="#047857" opacity="0.9"/>
+                  <circle cx="-14" cy="-22" r="24" fill="#10B981" opacity="0.85"/>
+                  <circle cx="16" cy="-20" r="26" fill="#22C55E" opacity="0.9"/>
+                  <circle cx="0" cy="-38" r="20" fill="#4DFF88" opacity="0.85"/>
+                  <!-- Light Specks -->
+                  <circle cx="-4" cy="-28" r="4" fill="#ECFDF5" opacity="0.75"/>
+                  <circle cx="8" cy="-14" r="3" fill="#ECFDF5" opacity="0.75"/>
+                </g>
+
+                <!-- Connected Community Orbital Ring -->
+                <ellipse cx="180" cy="180" rx="160" ry="60" fill="none" stroke="url(#ringGrad)" stroke-width="2.5" stroke-dasharray="8 6" transform="rotate(-25 180 180)"/>
+
+                <!-- Community Nodes on Orbit -->
+                <g class="orbit-node node-1">
+                  <circle cx="50" cy="130" r="8" fill="#4DFF88"/>
+                  <circle cx="50" cy="130" r="14" fill="none" stroke="#4DFF88" stroke-width="1.5" opacity="0.6"/>
+                </g>
+                <g class="orbit-node node-2">
+                  <circle cx="310" cy="230" r="8" fill="#84CC16"/>
+                  <circle cx="310" cy="230" r="14" fill="none" stroke="#84CC16" stroke-width="1.5" opacity="0.6"/>
+                </g>
+                <g class="orbit-node node-3">
+                  <circle cx="270" cy="90" r="7" fill="#10B981"/>
+                  <circle cx="270" cy="90" r="12" fill="none" stroke="#10B981" stroke-width="1.5" opacity="0.6"/>
+                </g>
+              </svg>
+            </div>
+
+            <!-- Floating Leaf Badge & Transformation Card -->
+            <div class="hero-float-card card-co2">
+              <span class="float-icon">♻️</span>
+              <div class="float-text">
+                <span class="float-title">CO₂ → 🌳 Transformation</span>
+                <span class="float-sub">Active Neighborhood Conversion</span>
+              </div>
+            </div>
+
+            <div class="hero-float-card card-leaf">
+              <span class="float-icon">⚡</span>
+              <div class="float-text">
+                <span class="float-title">Clean Grid Pulse</span>
+                <span class="float-sub">87% Renewable Sync</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. DAILY ECO MISSION & COMMUNITY GOAL BAND -->
+    <section class="missions-band" aria-label="Daily Mission and Community Goals">
+      <div class="section-container">
+        <div class="missions-grid">
+          <!-- Daily Mission Card -->
+          <div class="mission-card daily-mission-box" id="daily-mission-card">
+            <div class="mission-badge">
+              <span class="badge-icon">📅</span> TODAY'S ECO MISSION
+            </div>
+            <div class="mission-body">
+              <h3 class="mission-title" id="daily-mission-title">Avoid one single-use plastic item today.</h3>
+              <p class="mission-desc" id="daily-mission-desc">Bring a reusable tote, stainless bottle, or refuse plastic utensils with lunch.</p>
+              <div class="mission-reward">
+                <span class="reward-pill">+20 Green Points</span>
+                <span class="reward-streak">🔥 Keeps streak alive</span>
+              </div>
+            </div>
+            <div class="mission-action">
+              <button type="button" id="complete-mission-btn" class="btn btn-outline-success">
+                <span class="btn-check">✓</span> Complete Mission
+              </button>
+            </div>
+          </div>
+
+          <!-- Community Weekly Goal Card -->
+          <div class="mission-card community-goal-box" id="community-goal-card">
+            <div class="mission-badge community-badge">
+              <span class="badge-icon">🤝</span> THIS WEEK'S COMMUNITY MISSION
+            </div>
+            <div class="mission-body">
+              <div class="goal-header-flex">
+                <h3 class="mission-title">Save 5,000 kg CO₂ together</h3>
+                <span class="goal-numbers" id="comm-goal-text">3,240 / 5,000 kg</span>
+              </div>
+              <!-- Animated Progress Bar -->
+              <div class="progress-track" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" id="comm-goal-progressbar">
+                <div class="progress-fill" id="comm-goal-fill" style="width: 65%;">
+                  <span class="progress-shimmer"></span>
+                </div>
+              </div>
+              <div class="goal-footer-note">
+                <span>🌱 <strong>1,760 kg</strong> remaining to unlock Community Tree Grove</span>
+                <span class="goal-time">Ends in 3 days</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Streak Widget -->
+          <div class="mission-card streak-widget-box" id="streak-widget">
+            <div class="streak-header">
+              <span class="streak-flame">🔥</span>
+              <div class="streak-data">
+                <span class="streak-count" id="user-streak-display">7 Day</span>
+                <span class="streak-subtitle">Green Streak</span>
+              </div>
+            </div>
+            <p class="streak-encourage" id="streak-encourage-text">
+              Keep going! Log one action today to reach 8 days.
+            </p>
+            <div class="streak-milestones-dots" aria-label="Streak milestones">
+              <span class="milestone-dot completed" title="3 Days (Achieved)">3d</span>
+              <span class="milestone-dot completed current" title="7 Days (Current)">7d</span>
+              <span class="milestone-dot" title="14 Days (+100 GP Bonus)">14d</span>
+              <span class="milestone-dot" title="30 Days (Master Eco Badge)">30d</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. IMPACT DASHBOARD -->
+    <section id="impact" class="section dashboard-section">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <span class="section-tag">REAL-TIME DATA</span>
+          <h2 class="section-title">Community Impact Dashboard</h2>
+          <p class="section-subtitle">
+            Every sustainable choice aggregates into tangible neighborhood impact.
+          </p>
+        </div>
+
+        <!-- 5 Visual Green Statistic Cards -->
+        <div class="stats-cards-grid" role="region" aria-label="Impact Statistics">
+          <!-- Card 1: Total Eco Actions (Emerald) -->
+          <div class="eco-stat-card card-emerald">
+            <div class="stat-card-glow"></div>
+            <div class="stat-card-top">
+              <div class="stat-icon-circle">🌍</div>
+              <span class="trend-badge trend-up">↑ +14% this week</span>
+            </div>
+            <div class="stat-card-main">
+              <div class="stat-figure" id="stat-total-actions">2,860</div>
+              <h3 class="stat-name">Total Eco Actions</h3>
+              <p class="stat-card-desc">Logged by verified community members</p>
+            </div>
+            <div class="stat-card-meter">
+              <div class="mini-bar-track"><div class="mini-bar-fill" style="width: 82%;"></div></div>
+              <span class="meter-info">Goal: 3,500/mo</span>
+            </div>
+          </div>
+
+          <!-- Card 2: CO2 Saved (Dark Forest) -->
+          <div class="eco-stat-card card-darkforest">
+            <div class="stat-card-glow"></div>
+            <div class="stat-card-top">
+              <div class="stat-icon-circle">♻️</div>
+              <span class="trend-badge trend-up">↑ +18%</span>
+            </div>
+            <div class="stat-card-main">
+              <div class="stat-figure" id="stat-co2-saved">1,428</div>
+              <h3 class="stat-name">CO₂ Avoided (kg)</h3>
+              <p class="stat-card-desc">Equivalent to 6,100 car miles offset</p>
+            </div>
+            <div class="stat-card-meter">
+              <div class="mini-bar-track"><div class="mini-bar-fill" style="width: 71%;"></div></div>
+              <span class="meter-info">Target: 2,000 kg</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Trees Planted (Forest) -->
+          <div class="eco-stat-card card-forest">
+            <div class="stat-card-glow"></div>
+            <div class="stat-card-top">
+              <div class="stat-icon-circle">🌳</div>
+              <span class="trend-badge trend-up">↑ +24 new</span>
+            </div>
+            <div class="stat-card-main">
+              <div class="stat-figure" id="stat-trees-planted">342</div>
+              <h3 class="stat-name">Trees Planted</h3>
+              <p class="stat-card-desc">Native saplings thriving across parks</p>
+            </div>
+            <div class="stat-card-meter">
+              <div class="mini-bar-track"><div class="mini-bar-fill" style="width: 68%;"></div></div>
+              <span class="meter-info">Next Grove: 500</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Energy Saved (Lime) -->
+          <div class="eco-stat-card card-lime">
+            <div class="stat-card-glow"></div>
+            <div class="stat-card-top">
+              <div class="stat-icon-circle">⚡</div>
+              <span class="trend-badge trend-up">↑ +9.4%</span>
+            </div>
+            <div class="stat-card-main">
+              <div class="stat-figure" id="stat-energy-saved">3,890</div>
+              <h3 class="stat-name">Energy Saved (kWh)</h3>
+              <p class="stat-card-desc">Reduced peak grid load & vampire power</p>
+            </div>
+            <div class="stat-card-meter">
+              <div class="mini-bar-track"><div class="mini-bar-fill" style="width: 78%;"></div></div>
+              <span class="meter-info">4,500 kWh goal</span>
+            </div>
+          </div>
+
+          <!-- Card 5: Community Members (Mint/Sage) -->
+          <div class="eco-stat-card card-mint">
+            <div class="stat-card-glow"></div>
+            <div class="stat-card-top">
+              <div class="stat-icon-circle">👥</div>
+              <span class="trend-badge trend-up">↑ +38 joined</span>
+            </div>
+            <div class="stat-card-main">
+              <div class="stat-figure" id="stat-members-count">512</div>
+              <h3 class="stat-name">Community Members</h3>
+              <p class="stat-card-desc">Active changemakers in 12 districts</p>
+            </div>
+            <div class="stat-card-meter">
+              <div class="mini-bar-track"><div class="mini-bar-fill" style="width: 85%;"></div></div>
+              <span class="meter-info">Growing daily</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIVE IMPACT ANALYTICS CHART (WITH COMMUNITY VS MY IMPACT TABS) -->
+        <div class="chart-wrapper-card">
+          <div class="chart-header">
+            <div class="chart-title-area">
+              <h3 class="chart-title" id="chart-main-title">📈 Community Impact Over Time</h3>
+              <p class="chart-subtitle" id="chart-main-subtitle">Aggregated trends of emissions avoided, actions performed, and tree saplings planted.</p>
+            </div>
+            <div class="chart-controls">
+              <!-- Scope Tabs: Community vs My Impact -->
+              <div class="chart-btn-group chart-scope-group" role="group" aria-label="Impact Scope Selector">
+                <button type="button" class="chart-pill-btn active" id="chart-scope-comm" data-scope="community">Community</button>
+                <button type="button" class="chart-pill-btn" id="chart-scope-my" data-scope="personal">My Impact</button>
+              </div>
+              <!-- Timeframe Tabs -->
+              <div class="chart-btn-group" role="group" aria-label="Timeframe selection">
+                <button type="button" class="chart-pill-btn active" data-timeframe="weekly">Past 7 Days</button>
+                <button type="button" class="chart-pill-btn" data-timeframe="monthly">Past 4 Weeks</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-canvas-container">
+            <canvas id="impactAnalyticsChart" aria-label="Community Impact chart showing CO2, Actions, and Trees" role="img"></canvas>
+          </div>
+
+          <div class="chart-legend-custom">
+            <div class="legend-item"><span class="legend-dot dot-co2"></span> CO₂ Saved (kg)</div>
+            <div class="legend-item"><span class="legend-dot dot-actions"></span> Eco Actions</div>
+            <div class="legend-item"><span class="legend-dot dot-trees"></span> Trees Planted</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. LOG ECO-ACTION (MAIN INTERACTIVE EXPERIENCE) -->
+    <section id="log-action" class="section log-action-section">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <span class="section-tag">TAKE ACTION</span>
+          <h2 class="section-title">Log an Eco-Friendly Action</h2>
+          <p class="section-subtitle">
+            Select what you did today, enter the amount, and watch your Green Points and neighborhood impact instantly increase.
+          </p>
+        </div>
+
+        <div class="action-portal-card">
+          <!-- Step 1: Select Action Card -->
+          <div class="form-step-block">
+            <div class="step-label">
+              <span class="step-num">1</span>
+              <span>Select Your Sustainable Action</span>
+            </div>
+
+            <div class="action-cards-grid" role="radiogroup" aria-label="Eco-action types">
+              <!-- Action 1: Cycling / Walking -->
+              <div class="action-card selected" data-action="bike" tabindex="0" role="radio" aria-checked="true">
+                <div class="card-radio-indicator"></div>
+                <div class="action-card-icon">🚲</div>
+                <h4 class="action-card-title">Biked / Walked</h4>
+                <div class="action-card-points">+10 GP / km</div>
+                <p class="action-card-desc">Replaced motorized transport with human power.</p>
+                <div class="action-card-co2">≈ 0.21 kg CO₂ saved/km</div>
+              </div>
+
+              <!-- Action 2: Planted Tree -->
+              <div class="action-card" data-action="tree" tabindex="0" role="radio" aria-checked="false">
+                <div class="card-radio-indicator"></div>
+                <div class="action-card-icon">🌳</div>
+                <h4 class="action-card-title">Planted Tree</h4>
+                <div class="action-card-points">+50 GP / tree</div>
+                <p class="action-card-desc">Planted a sapling in a garden, park, or pot.</p>
+                <div class="action-card-co2">≈ 22 kg CO₂ absorbed/yr</div>
+              </div>
+
+              <!-- Action 3: Recycled Waste -->
+              <div class="action-card" data-action="recycle" tabindex="0" role="radio" aria-checked="false">
+                <div class="card-radio-indicator"></div>
+                <div class="action-card-icon">♻️</div>
+                <h4 class="action-card-title">Recycled Waste</h4>
+                <div class="action-card-points">+8 GP / kg</div>
+                <p class="action-card-desc">Properly sorted paper, cans, bottles, or plastic.</p>
+                <div class="action-card-co2">≈ 1.5 kg CO₂ saved/kg</div>
+              </div>
+
+              <!-- Action 4: Reusable Bag -->
+              <div class="action-card" data-action="bag" tabindex="0" role="radio" aria-checked="false">
+                <div class="card-radio-indicator"></div>
+                <div class="action-card-icon">🛍️</div>
+                <h4 class="action-card-title">Reusable Bag</h4>
+                <div class="action-card-points">+5 GP / bag</div>
+                <p class="action-card-desc">Refused disposable single-use shopping bags.</p>
+                <div class="action-card-co2">≈ 0.1 kg CO₂ saved/bag</div>
+              </div>
+
+              <!-- Action 5: Composted Organic Waste -->
+              <div class="action-card" data-action="compost" tabindex="0" role="radio" aria-checked="false">
+                <div class="card-radio-indicator"></div>
+                <div class="action-card-icon">🍂</div>
+                <h4 class="action-card-title">Composted</h4>
+                <div class="action-card-points">+10 GP / kg</div>
+                <p class="action-card-desc">Diverted kitchen scraps away from methane landfills.</p>
+                <div class="action-card-co2">≈ 0.8 kg CO₂ saved/kg</div>
+              </div>
+
+              <!-- Action 6: Saved Energy -->
+              <div class="action-card" data-action="energy" tabindex="0" role="radio" aria-checked="false">
+                <div class="card-radio-indicator"></div>
+                <div class="action-card-icon">💡</div>
+                <h4 class="action-card-title">Saved Energy</h4>
+                <div class="action-card-points">+4 GP / kWh</div>
+                <p class="action-card-desc">Switched off vampires, unplugged, or used natural light.</p>
+                <div class="action-card-co2">≈ 0.4 kg CO₂ saved/kWh</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Amount & Environmental Impact Calculation -->
+          <div class="form-step-block form-step-details">
+            <div class="step-label">
+              <span class="step-num">2</span>
+              <span>Specify Quantity & Calculate Estimated Benefit</span>
+            </div>
+
+            <div class="inputs-calculation-grid">
+              <!-- Input Fields -->
+              <div class="inputs-col">
+                <div class="form-group">
+                  <label for="action-quantity-input" class="form-label" id="quantity-label">
+                    Distance traveled (kilometers):
+                  </label>
+                  <div class="quantity-input-wrap">
+                    <button type="button" class="qty-btn" id="qty-minus" aria-label="Decrease quantity">-</button>
+                    <input type="number" id="action-quantity-input" class="form-input qty-input" value="5" min="1" max="100" step="1">
+                    <button type="button" class="qty-btn" id="qty-plus" aria-label="Increase quantity">+</button>
+                    <span class="qty-unit-pill" id="quantity-unit-badge">km</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="action-note-input" class="form-label">Optional Story or Location Note:</label>
+                  <input type="text" id="action-note-input" class="form-input" placeholder="e.g., Cycled along Green River trail to work">
+                </div>
+              </div>
+
+              <!-- Live Environmental Impact Estimate Preview Card -->
+              <div class="calculation-preview-col">
+                <div class="preview-box">
+                  <div class="preview-header">
+                    <span class="preview-sparkle">✨</span>
+                    <span>Live Environmental Estimate</span>
+                  </div>
+                  <div class="preview-main">
+                    <div class="calc-points-display">
+                      <span class="pts-number" id="preview-points-val">+50</span>
+                      <span class="pts-text">GREEN POINTS</span>
+                    </div>
+                    <div class="calc-benefit-display">
+                      <span class="benefit-icon">🌱</span>
+                      <span class="benefit-text" id="preview-co2-val">≈ 1.05 kg CO₂ emissions avoided</span>
+                    </div>
+                  </div>
+                  <div class="preview-meta">
+                    <small>Calculations based on standard EPA & IPCC sustainability metrics (estimates for education).</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Action Button -->
+            <div class="submit-action-wrap">
+              <button type="button" id="submit-eco-action-btn" class="btn btn-primary btn-xl submit-glow-btn">
+                <span class="btn-icon">🌱</span> Log This Eco Action & Earn Points
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. GAMIFICATION, PROFILE & ECO JOURNEY -->
+    <section id="gamification" class="section gamification-section">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <span class="section-tag">LEVELS & BADGES</span>
+          <h2 class="section-title">Your Green Journey & Gamification</h2>
+          <p class="section-subtitle">
+            Earn Green Points, level up from Seedling to Earth Legend, and unlock prestigious sustainability badges.
+          </p>
+        </div>
+
+        <div class="gamification-layout">
+          <!-- Profile Card -->
+          <div class="eco-profile-card">
+            <div class="profile-card-header">
+              <div class="profile-avatar-wrap">
+                <div class="profile-avatar" id="gamify-avatar">🌿</div>
+                <div class="avatar-ring"></div>
+              </div>
+              <div class="profile-meta">
+                <h3 class="profile-name"><span id="gamify-user-name">Alex Rivera</span> <span class="you-tag">(You)</span></h3>
+                <div class="profile-level-badge" id="user-level-badge">
+                  <span class="lvl-icon">🍃</span>
+                  <span class="lvl-name" id="user-level-name">Green Guardian</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Level Progress Bar -->
+            <div class="profile-level-progress">
+              <div class="level-progress-labels">
+                <span id="level-current-status">Level 3: Green Guardian</span>
+                <span id="level-points-progress">1,240 / 2,000 GP</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" id="level-progress-bar" style="width: 62%;"></div>
+              </div>
+              <div class="level-next-hint">
+                <span id="level-next-hint-text">760 points until Level 4: <strong>Eco Champion</strong></span>
+              </div>
+            </div>
+
+            <!-- Profile Stats Strip -->
+            <div class="profile-stats-strip">
+              <div class="p-stat">
+                <span class="p-stat-val" id="profile-points-total">1,240</span>
+                <span class="p-stat-lbl">Points</span>
+              </div>
+              <div class="p-stat">
+                <span class="p-stat-val" id="profile-streak-count">7 🔥</span>
+                <span class="p-stat-lbl">Day Streak</span>
+              </div>
+              <div class="p-stat">
+                <span class="p-stat-val" id="profile-badges-count">6 🏅</span>
+                <span class="p-stat-lbl">Badges</span>
+              </div>
+              <div class="p-stat">
+                <span class="p-stat-val" id="profile-rank-val">#4 🌍</span>
+                <span class="p-stat-lbl">Rank</span>
+              </div>
+            </div>
+
+            <!-- Smart AI Recommendations Box -->
+            <div class="smart-rec-box" id="smart-recommendation-box">
+              <div class="smart-rec-header">
+                <span class="rec-icon">🧠</span>
+                <span class="rec-label">Smart Eco Recommendation</span>
+              </div>
+              <p class="rec-body" id="smart-rec-text">
+                You frequently cycle and save power! Boost your score by planting a tree or composting kitchen waste this weekend.
+              </p>
+              <button type="button" class="btn btn-outline-success btn-xs" id="rec-act-btn">
+                Try Recommended Action
+              </button>
+            </div>
+          </div>
+
+          <!-- Eco Journey Visual Timeline -->
+          <div class="journey-timeline-card">
+            <h3 class="journey-title">🧭 Eco Milestones Roadmap</h3>
+            <p class="journey-sub">Advance your status through sustainable consistency.</p>
+
+            <div class="timeline-stepper" id="journey-timeline-stepper" role="list">
+              <!-- Rendered dynamically via JavaScript -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Badges Showcase -->
+        <div class="badges-showcase-wrap">
+          <div class="badges-header">
+            <h3 class="badges-title">🏅 Dynamic Badges & Achievements</h3>
+            <span class="badges-counter" id="badges-unlocked-summary">6 of 10 Unlocked</span>
+          </div>
+
+          <div class="badges-grid" id="badges-grid-container" role="list" aria-label="Achievements list">
+            <!-- Badges dynamically rendered via app.js with real states -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. GREENPULSE ECO ARCADE (4 LIGHTWEIGHT INTERACTIVE GAMES) -->
+    <section id="games" class="section games-section">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <span class="section-tag arcade-tag">ARCADE & LEARNING</span>
+          <h2 class="section-title">GreenPulse Eco Arcade</h2>
+          <p class="section-subtitle">
+            Play lightweight sustainability games, sharpen your environmental instincts, and earn bonus Green Points!
+          </p>
+        </div>
+
+        <!-- Arcade Game Selector Tabs -->
+        <div class="arcade-nav-tabs" role="tablist" aria-label="Eco Games Selector">
+          <button type="button" class="game-tab-btn active" role="tab" id="tab-game-sort" aria-selected="true" aria-controls="game-panel-sort">
+            <span class="game-tab-icon">♻️</span>
+            <span class="game-tab-name">Sort It Right</span>
+          </button>
+          <button type="button" class="game-tab-btn" role="tab" id="tab-game-tree" aria-selected="false" aria-controls="game-panel-tree">
+            <span class="game-tab-icon">🌳</span>
+            <span class="game-tab-name">Plant a Tree</span>
+          </button>
+          <button type="button" class="game-tab-btn" role="tab" id="tab-game-quiz" aria-selected="false" aria-controls="game-panel-quiz">
+            <span class="game-tab-icon">🌍</span>
+            <span class="game-tab-name">Eco Quiz</span>
+          </button>
+          <button type="button" class="game-tab-btn" role="tab" id="tab-game-energy" aria-selected="false" aria-controls="game-panel-energy">
+            <span class="game-tab-icon">⚡</span>
+            <span class="game-tab-name">Energy Saver</span>
+          </button>
+        </div>
+
+        <!-- GAME PANELS CONTAINER -->
+        <div class="arcade-panels-container">
+
+          <!-- GAME 1: SORT IT RIGHT -->
+          <div class="game-panel active" id="game-panel-sort" role="tabpanel" aria-labelledby="tab-game-sort">
+            <div class="game-panel-header">
+              <div class="game-title-info">
+                <h3>♻️ Sort It Right — Waste Sorter Challenge</h3>
+                <p>Categorize items into the correct bin before the timer runs out. Earn +10 GP per correct sort!</p>
+              </div>
+              <div class="game-scoreboard">
+                <div class="score-pill">Score: <strong id="sort-score-val">0</strong></div>
+                <div class="timer-pill">Time: <strong id="sort-timer-val">30s</strong></div>
+              </div>
+            </div>
+
+            <div class="game-stage" id="sort-game-stage">
+              <!-- Intro / Start View -->
+              <div class="game-overlay-screen" id="sort-start-screen">
+                <div class="overlay-icon">🍌 🥫 📄 🔋</div>
+                <h4>Can you sort community waste with zero contamination?</h4>
+                <p>Categorize items into: Recycle, Compost, General Waste, or Special E-Waste.</p>
+                <button type="button" id="start-sort-game-btn" class="btn btn-primary btn-lg">
+                  🎮 Start Sorting Challenge
+                </button>
+              </div>
+
+              <!-- Active Game Playing Field -->
+              <div class="sort-play-area hidden" id="sort-play-area">
+                <!-- Current Item to Sort -->
+                <div class="item-conveyor">
+                  <div class="current-waste-item" id="current-waste-card">
+                    <span class="waste-emoji" id="waste-emoji">🍌</span>
+                    <span class="waste-name" id="waste-name">Banana Peel</span>
+                    <span class="waste-hint" id="waste-hint">Organic household fruit remnant</span>
+                  </div>
+                  <div class="feedback-bubble" id="sort-feedback-bubble" aria-live="polite"></div>
+                </div>
+
+                <!-- 4 Interactive Target Bins -->
+                <div class="waste-bins-grid">
+                  <button type="button" class="waste-bin-btn bin-recycle" data-bin="recycle">
+                    <span class="bin-icon">♻️</span>
+                    <span class="bin-label">Recycle</span>
+                    <small>Paper, Glass, Plastic, Cans</small>
+                  </button>
+                  <button type="button" class="waste-bin-btn bin-compost" data-bin="compost">
+                    <span class="bin-icon">🍂</span>
+                    <span class="bin-label">Compost</span>
+                    <small>Food scraps, Leaves, Peels</small>
+                  </button>
+                  <button type="button" class="waste-bin-btn bin-general" data-bin="general">
+                    <span class="bin-icon">🗑️</span>
+                    <span class="bin-label">General Waste</span>
+                    <small>Non-recyclable trash</small>
+                  </button>
+                  <button type="button" class="waste-bin-btn bin-special" data-bin="special">
+                    <span class="bin-icon">⚠️</span>
+                    <span class="bin-label">Special Waste</span>
+                    <small>Batteries, Electronics</small>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Game Over / Results View -->
+              <div class="game-overlay-screen hidden" id="sort-results-screen">
+                <div class="overlay-icon">🏆</div>
+                <h4 id="sort-results-title">Eco Sorting Complete!</h4>
+                <p class="results-score-big">Score: <strong id="sort-final-score">80</strong> / 100</p>
+                <p id="sort-points-awarded" class="reward-alert">+20 Green Points Added to Profile!</p>
+                <div class="btn-group-row">
+                  <button type="button" id="replay-sort-game-btn" class="btn btn-secondary">
+                    🔄 Play Again
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- GAME 2: PLANT A TREE -->
+          <div class="game-panel" id="game-panel-tree" role="tabpanel" aria-labelledby="tab-game-tree" hidden>
+            <div class="game-panel-header">
+              <div class="game-title-info">
+                <h3>🌳 Plant a Tree — Interactive Ecosystem Sim</h3>
+                <p>Nurture a sapling step-by-step from seed to mature canopy tree. Adds to community forest & earns +25 GP!</p>
+              </div>
+              <div class="tree-garden-stats">
+                <span>Total Trees Grown: <strong id="garden-trees-count">0</strong></span>
+              </div>
+            </div>
+
+            <div class="game-stage tree-garden-stage">
+              <!-- Visual Soil and Growth Graphic -->
+              <div class="tree-visual-canvas">
+                <div class="sky-elements">
+                  <div class="sun-orb" id="tree-sun-orb">☀️</div>
+                  <div class="rain-cloud" id="tree-cloud">🌧️</div>
+                </div>
+
+                <!-- Animated Tree Container -->
+                <div class="tree-growth-container" id="tree-growth-view">
+                  <div class="tree-art stage-0" id="tree-art-figure">
+                    <div class="art-seed">🌱</div>
+                  </div>
+                  <div class="soil-ground">
+                    <div class="soil-texture"></div>
+                  </div>
+                </div>
+
+                <div class="tree-status-banner" id="tree-step-instruction">
+                  Step 1: Tap "Plant Seed" into fertile soil.
+                </div>
+              </div>
+
+              <!-- 4 Interactive Care Action Buttons -->
+              <div class="tree-actions-toolbar">
+                <button type="button" class="tree-action-btn active" id="btn-tree-seed">
+                  <span class="tab-icon">🌱</span>
+                  <span class="tab-text">1. Seed</span>
+                </button>
+                <button type="button" class="tree-action-btn" id="btn-tree-water" disabled>
+                  <span class="tab-icon">💧</span>
+                  <span class="tab-text">2. Water</span>
+                </button>
+                <button type="button" class="tree-action-btn" id="btn-tree-sun" disabled>
+                  <span class="tab-icon">☀️</span>
+                  <span class="tab-text">3. Sunlight</span>
+                </button>
+                <button type="button" class="tree-action-btn" id="btn-tree-grow" disabled>
+                  <span class="tab-icon">🌳</span>
+                  <span class="tab-text">4. Mature</span>
+                </button>
+              </div>
+
+              <div class="tree-completion-card hidden" id="tree-complete-box">
+                <div class="complete-header">🎉 Native Oak Tree Fully Grown!</div>
+                <p>You added a tree to the GreenPulse community forest. <strong>+25 Green Points earned!</strong></p>
+                <button type="button" id="grow-another-tree-btn" class="btn btn-outline-success">
+                  🌱 Plant Another Tree
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- GAME 3: ECO QUIZ -->
+          <div class="game-panel" id="game-panel-quiz" role="tabpanel" aria-labelledby="tab-game-quiz" hidden>
+            <div class="game-panel-header">
+              <div class="game-title-info">
+                <h3>🌍 Eco Knowledge Quiz</h3>
+                <p>Test your knowledge on recycling, energy, water, and circular habits. 5 rapid questions with instant explanations!</p>
+              </div>
+              <div class="quiz-tracker">
+                Question <span id="quiz-q-num">1</span> of 5
+              </div>
+            </div>
+
+            <div class="game-stage quiz-stage">
+              <div class="quiz-box" id="quiz-active-box">
+                <h4 class="quiz-question-title" id="quiz-question-text">
+                  Which household item is usually best replaced by a durable reusable alternative?
+                </h4>
+
+                <div class="quiz-options-list" id="quiz-options-list">
+                  <!-- Rendered via JS -->
+                </div>
+
+                <div class="quiz-explanation-box hidden" id="quiz-expl-box">
+                  <span class="expl-icon" id="quiz-expl-icon">💡</span>
+                  <p id="quiz-expl-text">Plastic bottles create massive lifecycle microplastic waste compared to durable steel.</p>
+                  <button type="button" id="quiz-next-btn" class="btn btn-primary btn-sm">Next Question →</button>
+                </div>
+              </div>
+
+              <!-- Quiz Results Screen -->
+              <div class="quiz-results-box hidden" id="quiz-results-box">
+                <div class="overlay-icon">🧠</div>
+                <h4>Eco Knowledge Quiz Finished!</h4>
+                <div class="quiz-score-summary">
+                  You scored <strong id="quiz-final-score">5</strong> out of 5!
+                </div>
+                <p class="quiz-accolade" id="quiz-accolade-text">Outstanding sustainability instincts! <strong>+30 Green Points awarded.</strong></p>
+                <button type="button" id="quiz-restart-btn" class="btn btn-secondary">
+                  🔄 Retake Quiz
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- GAME 4: ENERGY SAVER (VIRTUAL ROOM) -->
+          <div class="game-panel" id="game-panel-energy" role="tabpanel" aria-labelledby="tab-game-energy" hidden>
+            <div class="game-panel-header">
+              <div class="game-title-info">
+                <h3>⚡ Energy Saver — Virtual Room Vampire Hunt</h3>
+                <p>Multiple appliances are unnecessarily draining power! Tap to turn them OFF before the 20-second timer runs out.</p>
+              </div>
+              <div class="energy-meters">
+                <div class="watt-pill">Grid Draw: <strong id="room-watt-display">1,450 W</strong></div>
+                <div class="timer-pill">Timer: <strong id="energy-timer-display">20s</strong></div>
+              </div>
+            </div>
+
+            <div class="game-stage energy-room-stage">
+              <!-- Start Overlay -->
+              <div class="game-overlay-screen" id="energy-start-screen">
+                <div class="overlay-icon">💡 📺 💻 ❄️ 🔌</div>
+                <h4>Kill Vampire Power in the Virtual Room!</h4>
+                <p>Click all 5 humming devices to shut them down and slash energy waste.</p>
+                <button type="button" id="start-energy-btn" class="btn btn-primary btn-lg">
+                  ⚡ Start Energy Patrol
+                </button>
+              </div>
+
+              <!-- Virtual Room Interactive Canvas -->
+              <div class="virtual-room-grid hidden" id="energy-room-grid">
+                <!-- Device 1: Ceiling Light -->
+                <button type="button" class="appliance-btn is-on" data-appliance="light" id="dev-light">
+                  <span class="appliance-icon">💡</span>
+                  <span class="appliance-title">Overhead Lamp</span>
+                  <span class="appliance-draw">100 W</span>
+                  <span class="appliance-status">Status: ON</span>
+                </button>
+
+                <!-- Device 2: Big Screen TV -->
+                <button type="button" class="appliance-btn is-on" data-appliance="tv" id="dev-tv">
+                  <span class="appliance-icon">📺</span>
+                  <span class="appliance-title">Idle TV Screen</span>
+                  <span class="appliance-draw">250 W</span>
+                  <span class="appliance-status">Status: ON</span>
+                </button>
+
+                <!-- Device 3: PC Workstation -->
+                <button type="button" class="appliance-btn is-on" data-appliance="pc" id="dev-pc">
+                  <span class="appliance-icon">💻</span>
+                  <span class="appliance-title">Desktop PC</span>
+                  <span class="appliance-draw">350 W</span>
+                  <span class="appliance-status">Status: ON</span>
+                </button>
+
+                <!-- Device 4: Air Conditioner -->
+                <button type="button" class="appliance-btn is-on" data-appliance="ac" id="dev-ac">
+                  <span class="appliance-icon">❄️</span>
+                  <span class="appliance-title">AC on Max</span>
+                  <span class="appliance-draw">700 W</span>
+                  <span class="appliance-status">Status: ON</span>
+                </button>
+
+                <!-- Device 5: Phantom Charger -->
+                <button type="button" class="appliance-btn is-on" data-appliance="charger" id="dev-charger">
+                  <span class="appliance-icon">🔌</span>
+                  <span class="appliance-title">Empty Phone Charger</span>
+                  <span class="appliance-draw">50 W</span>
+                  <span class="appliance-status">Status: ON</span>
+                </button>
+              </div>
+
+              <!-- Results Screen -->
+              <div class="game-overlay-screen hidden" id="energy-results-screen">
+                <div class="overlay-icon">🌱⚡</div>
+                <h4>Grid Saved & Power Optimized!</h4>
+                <p class="results-score-big">Energy Diverted: <strong id="energy-saved-val">1.45 kWh</strong></p>
+                <p class="reward-alert">+25 Green Points Earned!</p>
+                <button type="button" id="replay-energy-btn" class="btn btn-secondary">
+                  🔄 Play Room Again
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- My Game Progress Profile Summary -->
+        <div class="arcade-summary-card">
+          <div class="summary-header">
+            <h4>🎮 My Eco Arcade Progress</h4>
+            <span class="badge-achievement">🏆 Eco Gamer: Active</span>
+          </div>
+          <div class="summary-stats-grid">
+            <div class="arcade-metric">
+              <span class="m-val" id="arcade-stat-played">4</span>
+              <span class="m-lbl">Games Played</span>
+            </div>
+            <div class="arcade-metric">
+              <span class="m-val" id="arcade-stat-sortbest">100/100</span>
+              <span class="m-lbl">Best Sort Score</span>
+            </div>
+            <div class="arcade-metric">
+              <span class="m-val" id="arcade-stat-points">120</span>
+              <span class="m-lbl">Arcade Green Points</span>
+            </div>
+            <div class="arcade-metric">
+              <span class="m-val" id="arcade-stat-accuracy">92%</span>
+              <span class="m-lbl">Eco Quiz Accuracy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. LEADERBOARD & COMMUNITY FEED -->
+    <section id="leaderboard" class="section leaderboard-section">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <span class="section-tag">FRIENDLY COMPETITION</span>
+          <h2 class="section-title">Neighborhood Leaderboard & Feed</h2>
+          <p class="section-subtitle">
+            Celebrate local heroes, track your community standing, and cheer on neighbors taking positive climate action.
+          </p>
+        </div>
+
+        <!-- My Personal Standing Banner -->
+        <div class="my-rank-banner" id="my-rank-banner">
+          <div class="my-rank-badge">🏆 Your Rank: <strong id="my-rank-num">#4</strong></div>
+          <div class="my-rank-info">
+            <span id="my-rank-name">Alex Rivera</span> • <span id="my-rank-pts">1,240 GP</span>
+          </div>
+          <div class="my-rank-gap" id="my-rank-gap">
+            You are only <strong>85 points</strong> away from #3!
+          </div>
+        </div>
+
+        <div class="social-competition-grid">
+          <!-- Left: Leaderboard -->
+          <div class="leaderboard-card">
+            <div class="leaderboard-top-bar">
+              <div class="board-title-group">
+                <span class="board-icon">🏆</span>
+                <h3>Top Contributors</h3>
+              </div>
+              <!-- Leaderboard Tabs -->
+              <div class="board-tabs" role="tablist">
+                <button type="button" class="board-tab active" id="tab-lead-weekly" role="tab" aria-selected="true">
+                  Weekly
+                </button>
+                <button type="button" class="board-tab" id="tab-lead-alltime" role="tab" aria-selected="false">
+                  All Time
+                </button>
+              </div>
+            </div>
+
+            <!-- Top 3 Podium Cards -->
+            <div class="podium-display" id="podium-container" aria-label="Top three leaders">
+              <!-- Rendered via JavaScript -->
+            </div>
+
+            <!-- Full Ranked Table -->
+            <div class="leaderboard-table-wrap">
+              <table class="leaderboard-table" aria-label="Neighborhood leaderboard standings">
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>Hero</th>
+                    <th>Level</th>
+                    <th>Actions</th>
+                    <th>Green Points</th>
+                  </tr>
+                </thead>
+                <tbody id="leaderboard-tbody">
+                  <!-- Injected via JavaScript with user highlighting -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Right: Live Community Activity Feed -->
+          <div class="community-feed-card">
+            <div class="feed-header">
+              <div class="feed-title-wrap">
+                <span class="live-dot"></span>
+                <h3>Live Community Pulse</h3>
+              </div>
+              <span class="feed-count-pill" id="feed-live-status">Real-Time Sync</span>
+            </div>
+
+            <div class="feed-list-scrollable" id="community-feed-list" role="feed" aria-busy="false">
+              <!-- Feed items will be prepended when user logs action or auto-refreshes -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. COMMUNITY MEMBERS SECTION (LOCAL DEMO PROFILES) -->
+    <section id="community-members" class="section community-members-section">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <span class="section-tag members-tag">LOCAL CHANGEMAKERS</span>
+          <h2 class="section-title">🌍 GreenPulse Community Members</h2>
+          <p class="section-subtitle">
+            Connect with local neighbors, view public sustainability profiles, and celebrate grassroots environmental leadership.
+          </p>
+        </div>
+
+        <div class="community-members-grid" id="community-members-grid">
+          <!-- Injected via JavaScript with public user profiles -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. ECO CHALLENGES -->
+    <section id="challenges" class="section challenges-section">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <span class="section-tag">TEAM MISSIONS</span>
+          <h2 class="section-title">Active Community Challenges</h2>
+          <p class="section-subtitle">
+            Join timed challenges, stay accountable with neighbors, and earn exclusive bonus rewards.
+          </p>
+        </div>
+
+        <div class="challenges-grid" id="challenges-grid-container">
+          <!-- Rendered dynamically by app.js with Start / Continue / Completed buttons -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. ECO TIPS & ACTIVE GOALS -->
+    <section id="tips" class="section tips-section">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <span class="section-tag">DAILY KNOWLEDGE</span>
+          <h2 class="section-title">Interactive Eco Tips & Habit Builder</h2>
+          <p class="section-subtitle">
+            Small habit adjustments create colossal collective results. Click "I'll Try This" to add a tip to your personal goals!
+          </p>
+        </div>
+
+        <!-- Filter Category Tabs -->
+        <div class="tips-filter-bar" role="group" aria-label="Tips categories">
+          <button type="button" class="tip-filter-btn active" data-filter="all">All Tips</button>
+          <button type="button" class="tip-filter-btn" data-filter="energy">⚡ Energy</button>
+          <button type="button" class="tip-filter-btn" data-filter="waste">♻️ Waste</button>
+          <button type="button" class="tip-filter-btn" data-filter="transport">🚲 Commuting</button>
+          <button type="button" class="tip-filter-btn" data-filter="nature">🌱 Nature</button>
+        </div>
+
+        <!-- Tips Cards Grid -->
+        <div class="tips-cards-grid" id="tips-grid-container">
+          <!-- Rendered dynamically via JavaScript -->
+        </div>
+
+        <!-- User Selected Active Goals Drawer / Strip -->
+        <div class="active-goals-tray" id="active-goals-tray">
+          <div class="goals-tray-header">
+            <h4>💚 My Active Eco Goals (<span id="user-goals-count">0</span>)</h4>
+            <small>Tips you committed to practice this week.</small>
+          </div>
+          <div class="goals-pills-wrap" id="user-goals-container">
+            <span class="empty-goals-hint">No active goals yet. Browse the tips above and click <strong>"I'll Try This"</strong>!</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. PERSONAL IMPACT CENTER ("MY IMPACT") & PERSONAL ACTION HISTORY -->
+    <section id="my-impact" class="section my-impact-section">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <span class="section-tag">PERSONAL AUDIT</span>
+          <h2 class="section-title">💚 My Environmental Impact Center</h2>
+          <p class="section-subtitle">
+            A comprehensive breakdown of your individual footprint savings, equivalents, and ripple effect.
+          </p>
+        </div>
+
+        <!-- Circular Impact Rings Grid -->
+        <div class="impact-rings-grid">
+          <div class="impact-ring-card">
+            <div class="ring-circle">
+              <svg viewBox="0 0 100 100" class="circle-svg">
+                <circle class="ring-bg" cx="50" cy="50" r="42"/>
+                <circle class="ring-progress ring-co2-progress" id="ring-svg-co2" cx="50" cy="50" r="42" stroke-dashoffset="60"/>
+              </svg>
+              <div class="ring-center-content">
+                <span class="ring-val" id="my-co2-val">84</span>
+                <span class="ring-unit">kg CO₂</span>
+              </div>
+            </div>
+            <h4>Carbon Diverted</h4>
+            <p>Emissions prevented from transport and energy reduction</p>
+          </div>
+
+          <div class="impact-ring-card">
+            <div class="ring-circle">
+              <svg viewBox="0 0 100 100" class="circle-svg">
+                <circle class="ring-bg" cx="50" cy="50" r="42"/>
+                <circle class="ring-progress ring-tree-progress" id="ring-svg-tree" cx="50" cy="50" r="42" stroke-dashoffset="120"/>
+              </svg>
+              <div class="ring-center-content">
+                <span class="ring-val" id="my-trees-val">4</span>
+                <span class="ring-unit">Trees</span>
+              </div>
+            </div>
+            <h4>Trees Equivalent</h4>
+            <p>Annual sequestration equivalent to mature tree canopies</p>
+          </div>
+
+          <div class="impact-ring-card">
+            <div class="ring-circle">
+              <svg viewBox="0 0 100 100" class="circle-svg">
+                <circle class="ring-bg" cx="50" cy="50" r="42"/>
+                <circle class="ring-progress ring-waste-progress" id="ring-svg-waste" cx="50" cy="50" r="42" stroke-dashoffset="90"/>
+              </svg>
+              <div class="ring-center-content">
+                <span class="ring-val" id="my-waste-val">28</span>
+                <span class="ring-unit">kg</span>
+              </div>
+            </div>
+            <h4>Materials Diverted</h4>
+            <p>Organic scraps and clean recyclables redirected</p>
+          </div>
+
+          <div class="impact-ring-card">
+            <div class="ring-circle">
+              <svg viewBox="0 0 100 100" class="circle-svg">
+                <circle class="ring-bg" cx="50" cy="50" r="42"/>
+                <circle class="ring-progress ring-power-progress" id="ring-svg-power" cx="50" cy="50" r="42" stroke-dashoffset="80"/>
+              </svg>
+              <div class="ring-center-content">
+                <span class="ring-val" id="my-power-val">96</span>
+                <span class="ring-unit">kWh</span>
+              </div>
+            </div>
+            <h4>Clean Power Saved</h4>
+            <p>Home kilowatt hours conserved via smart practices</p>
+          </div>
+        </div>
+
+        <!-- MY ECO ACTIVITY (PERSONAL ACTION HISTORY LOG) -->
+        <div class="my-activity-card">
+          <div class="activity-header-flex">
+            <div>
+              <h3 class="activity-title">📜 My Eco Activity Log</h3>
+              <p class="activity-sub">Chronological history of every sustainable habit you've logged in GreenPulse.</p>
+            </div>
+            <!-- Category Filters -->
+            <div class="activity-filter-pills" role="group" aria-label="Action history filter">
+              <button type="button" class="act-filter-btn active" data-act-filter="all">All</button>
+              <button type="button" class="act-filter-btn" data-act-filter="bike">🚲 Cycling</button>
+              <button type="button" class="act-filter-btn" data-act-filter="tree">🌳 Trees</button>
+              <button type="button" class="act-filter-btn" data-act-filter="recycle">♻️ Recycling</button>
+              <button type="button" class="act-filter-btn" data-act-filter="energy">💡 Energy</button>
+              <button type="button" class="act-filter-btn" data-act-filter="compost">🍂 Compost</button>
+            </div>
+          </div>
+
+          <div class="my-activity-list" id="my-activity-list">
+            <!-- Injected via JavaScript from active user's action history -->
+          </div>
+        </div>
+
+        <!-- Ripple Effect Flow Visualization -->
+        <div class="ripple-flow-box">
+          <h4 class="ripple-title">How Your Everyday Habits Scale Into Community Change</h4>
+          <div class="ripple-steps-flex">
+            <div class="ripple-card">
+              <span class="r-icon">👤</span>
+              <h5>Your Action</h5>
+              <p>Log a bicycle trip or refuse single-use bags.</p>
+            </div>
+            <div class="ripple-arrow">➔</div>
+            <div class="ripple-card">
+              <span class="r-icon">👥</span>
+              <h5>Neighborhood Ripple</h5>
+              <p>Friends and neighbors see the pulse feed and join in.</p>
+            </div>
+            <div class="ripple-arrow">➔</div>
+            <div class="ripple-card">
+              <span class="r-icon">🌍</span>
+              <h5>Macro Eco Impact</h5>
+              <p>Lower city grid strain, cleaner air, and vibrant green parks.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. IMPACT MAP (FUTURISTIC DARK FOREST) -->
+    <section id="map" class="section map-section">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <span class="section-tag map-tag">GEOGRAPHIC REACH</span>
+          <h2 class="section-title">Community Environmental Action Map</h2>
+          <p class="section-subtitle">
+            Interactive visualization of eco-initiatives, solar clusters, recycling hubs, and tree plantings across local districts.
+          </p>
+          <div class="map-demo-disclaimer">
+            <span class="disclaimer-shield">🛡️</span>
+            <strong>Community & Simulated Demo Data</strong> — Illustrates local neighborhood participation and regional eco activity.
+          </div>
+        </div>
+
+        <!-- Map Vector Interface Container -->
+        <div class="futuristic-map-frame">
+          <div class="map-filter-pills">
+            <button type="button" class="map-chip active" data-pin-type="all">All Hubs (6)</button>
+            <button type="button" class="map-chip" data-pin-type="tree">🌳 Tree Groves</button>
+            <button type="button" class="map-chip" data-pin-type="solar">⚡ Clean Energy</button>
+            <button type="button" class="map-chip" data-pin-type="recycle">♻️ Waste Hubs</button>
+            <button type="button" class="map-chip" data-pin-type="bike">🚲 Bike Corridors</button>
+          </div>
+
+          <div class="vector-map-viewport" id="vector-map-viewport">
+            <!-- Simulated Stylized Dark Forest Map SVG -->
+            <svg class="map-base-svg" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="mapBgGrad" cx="50%" cy="50%" r="70%">
+                  <stop offset="0%" stop-color="#064E3B"/>
+                  <stop offset="70%" stop-color="#022C22"/>
+                  <stop offset="100%" stop-color="#011712"/>
+                </radialGradient>
+                <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#10B981" stroke-width="0.5" stroke-opacity="0.12"/>
+                </pattern>
+              </defs>
+
+              <!-- Base Background & Grid -->
+              <rect width="100%" height="100%" fill="url(#mapBgGrad)"/>
+              <rect width="100%" height="100%" fill="url(#gridPattern)"/>
+
+              <!-- Stylized River -->
+              <path d="M-20 300 Q200 280 400 350 T750 320 T1020 400" fill="none" stroke="#047857" stroke-width="24" stroke-linecap="round" opacity="0.4"/>
+              <path d="M-20 300 Q200 280 400 350 T750 320 T1020 400" fill="none" stroke="#10B981" stroke-width="6" stroke-linecap="round" opacity="0.3"/>
+
+              <!-- District Boundaries -->
+              <polygon points="120,60 380,40 340,240 80,210" fill="#047857" fill-opacity="0.15" stroke="#10B981" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <text x="140" y="90" fill="#A7F3D0" font-size="12" font-family="'Space Grotesk', sans-serif" opacity="0.7">NORTH FOREST DISTRICT</text>
+
+              <polygon points="420,50 780,70 730,260 370,230" fill="#047857" fill-opacity="0.18" stroke="#10B981" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <text x="450" y="90" fill="#A7F3D0" font-size="12" font-family="'Space Grotesk', sans-serif" opacity="0.7">SOLAR COMMONS</text>
+
+              <polygon points="180,260 520,270 470,490 130,460" fill="#047857" fill-opacity="0.15" stroke="#10B981" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <text x="210" y="300" fill="#A7F3D0" font-size="12" font-family="'Space Grotesk', sans-serif" opacity="0.7">RIVER BASIN RECYCLE</text>
+
+              <polygon points="560,280 940,270 910,500 530,480" fill="#047857" fill-opacity="0.15" stroke="#10B981" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <text x="590" y="310" fill="#A7F3D0" font-size="12" font-family="'Space Grotesk', sans-serif" opacity="0.7">GREEN VALLEY COMMONS</text>
+            </svg>
+
+            <!-- Interactive Glowing DOM Markers -->
+            <!-- Marker 1: North Park Tree Sanctuary -->
+            <div class="map-marker-pin pin-tree" style="left: 24%; top: 22%;" data-id="1" tabindex="0" role="button" aria-label="North Park Community Forest marker">
+              <div class="pin-pulse"></div>
+              <div class="pin-dot">🌳</div>
+              <div class="pin-tooltip">
+                <strong>North Park Tree Sanctuary</strong>
+                <span>124 native trees planted • 2,720 kg CO₂</span>
+              </div>
+            </div>
+
+            <!-- Marker 2: Solar Heights Microgrid -->
+            <div class="map-marker-pin pin-solar" style="left: 62%; top: 25%;" data-id="2" tabindex="0" role="button" aria-label="Solar Heights Microgrid marker">
+              <div class="pin-pulse"></div>
+              <div class="pin-dot">⚡</div>
+              <div class="pin-tooltip">
+                <strong>Solar Heights Microgrid</strong>
+                <span>42 solar rooftops active • 1,840 kWh saved</span>
+              </div>
+            </div>
+
+            <!-- Marker 3: River Basin Recycling Depot -->
+            <div class="map-marker-pin pin-recycle" style="left: 32%; top: 62%;" data-id="3" tabindex="0" role="button" aria-label="River Commons Waste Depot marker">
+              <div class="pin-pulse"></div>
+              <div class="pin-dot">♻️</div>
+              <div class="pin-tooltip">
+                <strong>River Commons Sorting Hub</strong>
+                <span>380 kg e-waste & compost sorted this week</span>
+              </div>
+            </div>
+
+            <!-- Marker 4: Green Valley Bike Highway -->
+            <div class="map-marker-pin pin-bike" style="left: 74%; top: 66%;" data-id="4" tabindex="0" role="button" aria-label="Green Valley Bike Corridor marker">
+              <div class="pin-pulse"></div>
+              <div class="pin-dot">🚲</div>
+              <div class="pin-tooltip">
+                <strong>Green Valley Bike Corridor</strong>
+                <span>860 commute km logged • 180 kg CO₂ saved</span>
+              </div>
+            </div>
+
+            <!-- Marker 5: Central Organic Food Garden -->
+            <div class="map-marker-pin pin-tree" style="left: 48%; top: 46%;" data-id="5" tabindex="0" role="button" aria-label="Civic Compost & Botanical Garden marker">
+              <div class="pin-pulse"></div>
+              <div class="pin-dot">🍃</div>
+              <div class="pin-tooltip">
+                <strong>Civic Community Compost</strong>
+                <span>210 kg rich humus produced</span>
+              </div>
+            </div>
+
+            <!-- Marker 6: Clean Energy Innovation Center -->
+            <div class="map-marker-pin pin-solar" style="left: 82%; top: 38%;" data-id="6" tabindex="0" role="button" aria-label="Eastside Energy Storage marker">
+              <div class="pin-pulse"></div>
+              <div class="pin-dot">💡</div>
+              <div class="pin-tooltip">
+                <strong>Eastside Storage Battery</strong>
+                <span>Peak load shaving demo partner</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Marker Detail Drawer / Card -->
+          <div class="map-detail-card" id="map-marker-details" aria-live="polite">
+            <div class="marker-detail-header">
+              <span class="m-detail-icon" id="marker-detail-icon">🌳</span>
+              <div class="m-detail-titles">
+                <h4 id="marker-detail-title">North Park Tree Sanctuary</h4>
+                <span class="m-detail-category" id="marker-detail-cat">Category: Native Forestation</span>
+              </div>
+              <button type="button" class="close-marker-btn" id="close-marker-details" aria-label="Close detail pane">&times;</button>
+            </div>
+            <p id="marker-detail-desc" class="marker-detail-text">
+              Community volunteer planting zone established this spring. Over 124 saplings are monitored by local youth and park wardens.
+            </p>
+            <div class="marker-stats-strip">
+              <div class="m-stat-pill">
+                <span>Contribution:</span> <strong id="marker-detail-contrib">124 Trees</strong>
+              </div>
+              <div class="m-stat-pill">
+                <span>Green Points:</span> <strong id="marker-detail-points">+6,200 GP</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       MODALS: AUTH, PROFILE, SWITCH ACCOUNT, DELETE ACCOUNT & CELEBRATION
+       ========================================================================= -->
+
+  <!-- 1. AUTHENTICATION / WELCOME MODAL -->
+  <div id="auth-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+    <div class="auth-dialog-card">
+      <button type="button" id="auth-close-btn" class="close-drawer-btn auth-close-x" aria-label="Close Authentication">&times;</button>
+      
+      <!-- VIEW A: WELCOME SCREEN -->
+      <div id="auth-welcome-view" class="auth-view">
+        <div class="auth-logo-center">
+          <div class="logo-symbol auth-symbol">
+            <svg class="leaf-svg" viewBox="0 0 32 32" width="42" height="42" fill="none">
+              <path d="M6 26C6 26 8 16 16 12C24 8 28 4 28 4C28 4 27 12 21 19C15 26 6 26 6 26Z" fill="#10B981" stroke="#4DFF88" stroke-width="1.5"/>
+              <path d="M12 21C15 18 19 15 22 13" stroke="#ECFDF5" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h2 class="auth-brand-name">🌱 GreenPulse</h2>
+          <p class="auth-brand-tagline">Your greener journey starts here.</p>
+        </div>
+
+        <div class="auth-demo-badge-wrap">
+          <span class="auth-demo-badge">🛡️ LOCAL DEMO MODE</span>
+          <p class="auth-demo-notice">
+            GreenPulse currently stores demo account data on this device. A production version can connect this interface to a secure backend.
+          </p>
+        </div>
+
+        <div class="auth-btn-stack">
+          <button type="button" id="welcome-btn-login" class="btn btn-primary btn-lg">
+            🔑 Login to Demo Account
+          </button>
+          <button type="button" id="welcome-btn-register" class="btn btn-secondary btn-lg">
+            🌱 Create New Demo Account
+          </button>
+          <button type="button" id="welcome-btn-guest" class="btn btn-glass btn-sm">
+            👤 Continue as Guest
+          </button>
+        </div>
+
+        <!-- Quick Demo Switcher Preview -->
+        <div class="auth-sample-strip">
+          <small class="sample-label">Or test immediately with a sample profile:</small>
+          <div class="sample-pills-row" id="auth-sample-pills">
+            <!-- Sample user shortcuts injected via JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW B: LOGIN SCREEN -->
+      <div id="auth-login-view" class="auth-view hidden">
+        <div class="auth-header-row">
+          <h3 id="auth-modal-title">🔑 Demo Account Login</h3>
+          <p class="auth-sub">Enter your local demo credentials.</p>
+        </div>
+
+        <form id="login-form" class="auth-form" onsubmit="return false;">
+          <div class="form-group">
+            <label for="login-identity-input" class="form-label">Username or Email</label>
+            <input type="text" id="login-identity-input" class="form-input" placeholder="e.g., alexgreen or alex.rivera@eco.community" required autocomplete="username">
+          </div>
+
+          <div class="form-group">
+            <label for="login-password-input" class="form-label">Password</label>
+            <div class="password-input-wrap">
+              <input type="password" id="login-password-input" class="form-input" placeholder="Enter password (e.g., green123)" required autocomplete="current-password">
+              <button type="button" class="pw-toggle-btn" id="login-toggle-pw" aria-label="Toggle password visibility">👁️</button>
+            </div>
+          </div>
+
+          <div class="login-remember-row">
+            <label class="remember-chk-label">
+              <input type="checkbox" id="login-remember-chk" checked>
+              <span>Remember this device</span>
+            </label>
+          </div>
+
+          <div class="form-feedback-msg error hidden" id="login-error-msg"></div>
+
+          <small class="demo-account-notice">
+            🔒 Demo account — data is stored locally on this device.
+          </small>
+
+          <button type="submit" id="login-submit-btn" class="btn btn-primary btn-lg auth-submit-btn">
+            Login to GreenPulse
+          </button>
+        </form>
+
+        <div class="auth-footer-nav">
+          <button type="button" id="login-goto-register-btn" class="f-text-btn">Don't have an account? <strong>Create Account</strong></button>
+          <button type="button" id="login-goto-guest-btn" class="f-text-btn">Continue as Guest</button>
+        </div>
+      </div>
+
+      <!-- VIEW C: CREATE ACCOUNT SCREEN -->
+      <div id="auth-register-view" class="auth-view hidden">
+        <div class="auth-header-row">
+          <h3>🌱 Create Local Demo Account</h3>
+          <p class="auth-sub">Start tracking habits and personalized eco impact.</p>
+        </div>
+
+        <form id="register-form" class="auth-form" onsubmit="return false;">
+          <!-- Basic Info -->
+          <div class="form-grid-two">
+            <div class="form-group">
+              <label for="reg-name-input" class="form-label">Full Name *</label>
+              <input type="text" id="reg-name-input" class="form-input" placeholder="e.g., Alex Rivera" required>
+            </div>
+            <div class="form-group">
+              <label for="reg-username-input" class="form-label">Username *</label>
+              <input type="text" id="reg-username-input" class="form-input" placeholder="e.g., alexgreen" required>
+              <span class="field-validation-hint" id="reg-username-feedback"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="reg-email-input" class="form-label">Email Address *</label>
+            <input type="email" id="reg-email-input" class="form-input" placeholder="e.g., alex@neighborhood.eco" required>
+            <span class="field-validation-hint" id="reg-email-feedback"></span>
+          </div>
+
+          <div class="form-grid-two">
+            <div class="form-group">
+              <label for="reg-password-input" class="form-label">Password *</label>
+              <div class="password-input-wrap">
+                <input type="password" id="reg-password-input" class="form-input" placeholder="Min 6 characters" required autocomplete="new-password">
+                <button type="button" class="pw-toggle-btn" id="reg-toggle-pw" aria-label="Toggle password visibility">👁️</button>
+              </div>
+              <div class="password-strength-wrap">
+                <div class="strength-bar-track">
+                  <div class="strength-bar-fill" id="reg-pw-strength-bar"></div>
+                </div>
+                <span class="strength-label" id="reg-pw-strength-text">Strength: —</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-confirm-pw-input" class="form-label">Confirm Password *</label>
+              <input type="password" id="reg-confirm-pw-input" class="form-input" placeholder="Re-enter password" required autocomplete="new-password">
+              <span class="field-validation-hint" id="reg-confirm-pw-feedback"></span>
+            </div>
+          </div>
+
+          <!-- Profile Options -->
+          <div class="form-grid-two">
+            <div class="form-group">
+              <label for="reg-age-select" class="form-label">Age Group (Optional)</label>
+              <select id="reg-age-select" class="form-input form-select">
+                <option value="adult" selected>Adult (25–64)</option>
+                <option value="student">Student (18–24)</option>
+                <option value="teen">Teen (13–17)</option>
+                <option value="child">Child (Under 13)</option>
+                <option value="senior">Senior (65+)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-location-input" class="form-label">Neighborhood / Area (Optional)</label>
+              <input type="text" id="reg-location-input" class="form-input" placeholder="e.g., North Forest, Solar Commons">
+              <small class="input-hint-tiny">General area only. Precise GPS is never requested.</small>
+            </div>
+          </div>
+
+          <!-- Eco Interests Multi-select -->
+          <div class="form-group">
+            <label class="form-label">Eco Interests (Select all that apply)</label>
+            <div class="eco-interest-pills" id="reg-interest-pills" role="group" aria-label="Eco Interests Selection">
+              <button type="button" class="interest-pill active" data-interest="tree">🌳 Tree Planting</button>
+              <button type="button" class="interest-pill active" data-interest="recycle">♻️ Recycling</button>
+              <button type="button" class="interest-pill active" data-interest="bike">🚲 Cycling / Walking</button>
+              <button type="button" class="interest-pill active" data-interest="energy">💡 Energy Saving</button>
+              <button type="button" class="interest-pill" data-interest="compost">🍂 Composting</button>
+              <button type="button" class="interest-pill" data-interest="plastic">🛍️ Plastic Reduction</button>
+              <button type="button" class="interest-pill" data-interest="water">💧 Water Saving</button>
+              <button type="button" class="interest-pill" data-interest="gardening">🌱 Gardening</button>
+            </div>
+          </div>
+
+          <!-- Preferred Experience Mode -->
+          <div class="form-group">
+            <label class="form-label">Preferred Experience Mode</label>
+            <div class="mode-radio-group">
+              <label class="mode-radio-card">
+                <input type="radio" name="reg-mode" value="standard" checked>
+                <span>🧑 Standard Mode</span>
+              </label>
+              <label class="mode-radio-card">
+                <input type="radio" name="reg-mode" value="kids">
+                <span>👶 Kids Mode</span>
+              </label>
+              <label class="mode-radio-card">
+                <input type="radio" name="reg-mode" value="senior">
+                <span>👴 Senior-Friendly</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-feedback-msg error hidden" id="reg-error-msg"></div>
+
+          <button type="submit" id="reg-submit-btn" class="btn btn-primary btn-lg auth-submit-btn">
+            🌱 Create My GreenPulse Account (+10 GP)
+          </button>
+        </form>
+
+        <div class="auth-footer-nav">
+          <button type="button" id="reg-goto-login-btn" class="f-text-btn">Already have an account? <strong>Log In</strong></button>
+          <button type="button" id="reg-goto-guest-btn" class="f-text-btn">Continue as Guest</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. USER PROFILE MODAL (VIEW / EDIT PROFILE) -->
+  <div id="profile-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
+    <div class="profile-dialog-card">
+      <div class="dialog-header-row">
+        <h3 id="profile-modal-title">🌿 My Green Profile</h3>
+        <button type="button" id="close-profile-modal-btn" class="close-drawer-btn" aria-label="Close profile modal">&times;</button>
+      </div>
+
+      <div class="profile-dialog-body">
+        <!-- Avatar Selector Section -->
+        <div class="avatar-picker-section">
+          <label class="form-label">Choose Your Eco Avatar</label>
+          <div class="avatar-options-grid" id="avatar-picker-grid" role="radiogroup" aria-label="Avatar options">
+            <button type="button" class="avatar-opt-btn active" data-avatar="🌱">🌱</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="🌳">🌳</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="🌍">🌍</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="🍃">🍃</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="♻️">♻️</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="🚲">🚲</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="☀️">☀️</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="💧">💧</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="🌺">🌺</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="🦉">🦉</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="🐝">🐝</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="🌊">🌊</button>
+          </div>
+        </div>
+
+        <!-- Editable Profile Fields -->
+        <form id="profile-edit-form" class="auth-form" onsubmit="return false;">
+          <div class="form-grid-two">
+            <div class="form-group">
+              <label for="prof-name-input" class="form-label">Full Name</label>
+              <input type="text" id="prof-name-input" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label for="prof-username-input" class="form-label">Eco Username</label>
+              <input type="text" id="prof-username-input" class="form-input" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Community Display Name Preference</label>
+            <div class="mode-radio-group">
+              <label class="mode-radio-card">
+                <input type="radio" name="prof-display-pref" value="name" checked>
+                <span>Real Name</span>
+              </label>
+              <label class="mode-radio-card">
+                <input type="radio" name="prof-display-pref" value="username">
+                <span>Eco Username (@handle)</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Community Profile Visibility</label>
+            <div class="mode-radio-group">
+              <label class="mode-radio-card">
+                <input type="radio" name="prof-visibility" value="public" checked>
+                <span>🌍 Public (Visible to neighborhood)</span>
+              </label>
+              <label class="mode-radio-card">
+                <input type="radio" name="prof-visibility" value="private">
+                <span>🔒 Private (Hidden from members list)</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-grid-two">
+            <div class="form-group">
+              <label for="prof-age-select" class="form-label">Age Group</label>
+              <select id="prof-age-select" class="form-input form-select">
+                <option value="adult">Adult</option>
+                <option value="student">Student</option>
+                <option value="teen">Teen</option>
+                <option value="child">Child</option>
+                <option value="senior">Senior</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="prof-mode-select" class="form-label">Default Experience Mode</label>
+              <select id="prof-mode-select" class="form-input form-select">
+                <option value="standard">Standard Mode</option>
+                <option value="kids">Kids Mode</option>
+                <option value="senior">Senior-Friendly Mode</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="prof-neighborhood-input" class="form-label">Neighborhood / Area</label>
+            <input type="text" id="prof-neighborhood-input" class="form-input" placeholder="e.g. North Forest District">
+          </div>
+
+          <div class="form-group">
+            <label for="prof-bio-input" class="form-label">Personal Eco Bio</label>
+            <textarea id="prof-bio-input" class="form-input prof-textarea" rows="2" maxlength="180" placeholder="Trying to make my neighborhood greener one action at a time."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Eco Interests</label>
+            <div class="eco-interest-pills" id="prof-interest-pills">
+              <button type="button" class="interest-pill" data-interest="tree">🌳 Tree Planting</button>
+              <button type="button" class="interest-pill" data-interest="recycle">♻️ Recycling</button>
+              <button type="button" class="interest-pill" data-interest="bike">🚲 Cycling / Walking</button>
+              <button type="button" class="interest-pill" data-interest="energy">💡 Energy Saving</button>
+              <button type="button" class="interest-pill" data-interest="compost">🍂 Composting</button>
+              <button type="button" class="interest-pill" data-interest="plastic">🛍️ Plastic Reduction</button>
+              <button type="button" class="interest-pill" data-interest="water">💧 Water Saving</button>
+              <button type="button" class="interest-pill" data-interest="gardening">🌱 Gardening</button>
+            </div>
+          </div>
+
+          <div class="profile-actions-bar">
+            <button type="button" id="prof-save-btn" class="btn btn-primary">
+              💾 Save Profile Changes
+            </button>
+            <button type="button" id="prof-switch-btn" class="btn btn-secondary">
+              🔄 Switch Account
+            </button>
+            <button type="button" id="prof-logout-btn" class="btn btn-danger">
+              🚪 Log Out
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. SWITCH ACCOUNT MODAL -->
+  <div id="switch-account-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="switch-modal-title">
+    <div class="switch-dialog-card">
+      <div class="dialog-header-row">
+        <h3 id="switch-modal-title">🔄 Switch Demo Account</h3>
+        <button type="button" id="close-switch-modal-btn" class="close-drawer-btn" aria-label="Close switch account">&times;</button>
+      </div>
+      <p class="switch-desc">Select any locally registered user profile to test different levels, actions, and impact metrics.</p>
+
+      <div class="switch-accounts-grid" id="switch-accounts-list">
+        <!-- Rendered via JavaScript -->
+      </div>
+
+      <div class="switch-dialog-footer">
+        <button type="button" id="switch-create-new-btn" class="btn btn-outline-success">
+          ➕ Create Another Demo Account
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. DELETE ACCOUNT CONFIRMATION MODAL -->
+  <div id="delete-confirm-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="del-modal-title">
+    <div class="confirm-dialog-card">
+      <div class="confirm-icon">🗑️</div>
+      <h3 id="del-modal-title" class="confirm-title">Delete Demo Account?</h3>
+      <p class="confirm-desc" id="del-account-desc">
+        Delete this local demo account and all associated personal data from this device? Other demo accounts will remain untouched.
+      </p>
+      <div class="confirm-actions">
+        <button type="button" id="cancel-delete-acc-btn" class="btn btn-secondary">Cancel</button>
+        <button type="button" id="confirm-delete-acc-btn" class="btn btn-danger">Yes, Delete Account</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. CELEBRATION MODAL (POPUP WHEN ACTION LOGGED OR BADGE UNLOCKED) -->
+  <div id="celebration-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="celeb-modal-title">
+    <div class="celebration-card">
+      <div class="celeb-particles-burst" aria-hidden="true"></div>
+      <div class="celeb-icon" id="celeb-icon">🎉</div>
+      <h3 class="celeb-title" id="celeb-modal-title">Achievement Unlocked!</h3>
+      <p class="celeb-badge-name" id="celeb-badge-name">Recycling Hero</p>
+      <p class="celeb-desc" id="celeb-desc">You recycled your way to a greener community.</p>
+      <div class="celeb-reward-pill" id="celeb-reward">+50 Green Points</div>
+      <button type="button" id="celeb-close-btn" class="btn btn-primary btn-lg celeb-btn">
+        Continue Green Journey 🚀
+      </button>
+    </div>
+  </div>
+
+  <!-- 6. RESET DATA CONFIRMATION MODAL -->
+  <div id="reset-confirm-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="reset-modal-title">
+    <div class="confirm-dialog-card">
+      <div class="confirm-icon">⚠️</div>
+      <h3 id="reset-modal-title" class="confirm-title">Reset GreenPulse Demo Data?</h3>
+      <p class="confirm-desc">
+        This will restore all sample users, eco-actions, points, streak counters, badges, and challenge states back to the original default demo baseline.
+      </p>
+      <div class="confirm-actions">
+        <button type="button" id="cancel-reset-btn" class="btn btn-secondary">Cancel</button>
+        <button type="button" id="confirm-reset-btn" class="btn btn-danger">Yes, Reset Demo Baseline</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. STORED DATA SUMMARY MODAL -->
+  <div id="data-summary-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="summary-modal-title">
+    <div class="summary-dialog-card">
+      <div class="summary-header-row">
+        <h3 id="summary-modal-title">💾 Local Storage Data Summary</h3>
+        <button type="button" id="close-data-summary-btn" class="close-drawer-btn" aria-label="Close summary modal">&times;</button>
+      </div>
+      <div class="summary-json-view">
+        <pre><code id="stored-json-display">Loading...</code></pre>
+      </div>
+      <div class="summary-dialog-footer">
+        <small>Stored under localStorage keys with prefix <code>greenpulse_</code>.</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION STACK -->
+  <div class="toast-stack-container" id="toast-container" aria-live="polite" aria-atomic="true">
+    <!-- Toasts injected dynamically -->
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="section-container footer-container">
+      <div class="footer-top-grid">
+        <!-- Brand Column -->
+        <div class="footer-brand-col">
+          <div class="footer-logo">
+            <span class="f-logo-icon">🌱</span>
+            <span class="f-logo-name">GreenPulse</span>
+          </div>
+          <p class="footer-tagline">
+            Small actions. Measurable impact. A greener tomorrow.
+          </p>
+          <div class="footer-social-eco">
+            <span class="eco-badge-small">🌍 Zero Backend Local Ecosystem</span>
+            <span class="eco-badge-small">⚡ Multi-User Local Authentication</span>
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="footer-nav-col">
+          <h4 class="f-nav-title">Ecosystem</h4>
+          <ul class="f-links-list">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#impact">Impact Analytics</a></li>
+            <li><a href="#log-action">Log Eco Action</a></li>
+            <li><a href="#games">Eco Arcade</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-col">
+          <h4 class="f-nav-title">Community</h4>
+          <ul class="f-links-list">
+            <li><a href="#leaderboard">Leaderboard</a></li>
+            <li><a href="#community-members">Community Members</a></li>
+            <li><a href="#challenges">Challenges</a></li>
+            <li><a href="#tips">Eco Tips</a></li>
+            <li><a href="#map">Impact Map</a></li>
+          </ul>
+        </div>
+
+        <!-- Utilities & Reset -->
+        <div class="footer-nav-col">
+          <h4 class="f-nav-title">Preferences</h4>
+          <ul class="f-links-list">
+            <li><button type="button" class="f-text-btn" id="footer-profile-btn">👤 My Green Profile</button></li>
+            <li><button type="button" class="f-text-btn" id="footer-switch-btn">🔄 Switch Demo Account</button></li>
+            <li><button type="button" class="f-text-btn" id="footer-settings-btn">⚙️ Open Settings</button></li>
+            <li><button type="button" class="f-text-btn" id="footer-reset-btn">🔄 Reset Demo Baseline</button></li>
+            <li><a href="#hero" class="f-text-btn">↑ Back to Top</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <p class="footer-copy">
+          © 2026 <strong>GreenPulse Ecosystem</strong> • Made for a greener future. Multi-User Demo Architecture.
+        </p>
+        <div class="footer-indicators">
+          <span>🌿 Designed for Every Generation</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
+
+
+

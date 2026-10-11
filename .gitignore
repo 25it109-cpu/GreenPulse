@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Local environment & secrets (none used in this client-side SPA)
+.env
+.env.local
+.env.*.local
+
+# Build & deployment outputs
+dist/
+.output/
+.netlify/
+.vercel/
+
+# Backups & local shortcuts
+index-backup.html
+Desktop/
+
+# Editor & OS artifacts
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
